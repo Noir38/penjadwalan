@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h4 class="card-title text-center">Login</h4>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </form>
+          <div class="alert alert-danger mt-3 d-none" id="errorMessage"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Axios and Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Handle form submission
+  document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission
+    
+    // Get email and password
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      // Make POST request to login API
+      const response = await axios.post('http://127.0.0.1:8000/api/login', {
+        email: email,
+        password: password
+      });
+
+      // If login successful
+      if (response.data.access_token) {
+        // Save token to local storage or cookies
+        localStorage.setItem('token', response.data.access_token);
+
+        // Redirect to admin dashboard
+        window.location.href = '../../admin/dashboard.html'; // Modify to your dashboard route
+      }
+    } catch (error) {
+      // Handle error response
+      document.getElementById('errorMessage').classList.remove('d-none');
+      document.getElementById('errorMessage').innerText = 'Invalid login credentials. Please try again.';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">user 3</span>
+    </a>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+        <div class="info">
+          <a href="#" class="d-block" id="username">Nama</a>
+          <span id="userEmail">Email Pengguna</span>
+        </div>
+        
+        
+      </div>
+  
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="./../user/dashboard.html" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard VA</p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="./../user/datadosen.html" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>Data dosen</p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="./../user/datamatkul.html" class="nav-link active">
+              <i class="nav-icon fas fa-book"></i>
+              <p>Data matkul</p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="./../user/datakelas.html" class="nav-link active">
+              <i class="nav-icon fas fa-chalkboard"></i>
+              <p>Data kelas</p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="./../user/dataangkatan.html" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Data angkatan</p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="./../user/dailyschedule.html" class="nav-link active">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>Daily schedule</p>
+            </a>
+          </li>
+  
+          <!-- Logout button -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active" id="logoutButton">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <button onclick="btnLogout()">Logout</button>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  
+  <script>
+    document.getElementById('logoutButton').addEventListener('click', function() {
+      // Hapus token dari localStorage
+      localStorage.removeItem('token');
+      
+      // Redirect ke halaman login
+      window.location.href = '/login.html';
+    });
+  </script>
+  

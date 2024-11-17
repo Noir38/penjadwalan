@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #3b3f43, #2c3033); /* Softer gradient background */
+      font-family: 'Arial', sans-serif;
+    }
+
+    .form-container {
+      background-color: #343a40;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      width: 100%;
+      max-width: 400px;
+      color: #fff;
+    }
+
+    .form-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .form-control {
+      background-color: #f8f9fa;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      color: #495057;
+      padding: 0.8rem;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .form-label {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-primary:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-footer a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 5px;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .alert-info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <div class="form-title">Login</div>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <div id="errorMessage" class="alert alert-danger"></div>
+    <div id="notification" class="alert alert-info"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+  
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+  
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          email: email,
+          password: password
+        });
+  
+        // Assuming the response contains the access token, role, and other user details
+        const { access_token, user } = response.data.data;
+        const { role, id } = user;
+  
+        // Save token and user role to local storage
+        localStorage.setItem('token', access_token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('id', id);
+  
+        // Show notification for successful login
+        showNotification('Login successful', 'info');
+  
+        // Redirect based on user role
+        if (role === 'admin') {
+          setTimeout(() => {
+            window.location.href = './admin/dashboard.html';  // Admin dashboard
+          }, 1000);
+        } else if (role === 'user') {
+          setTimeout(() => {
+            window.location.href = './user/dashboard.html';  // User dashboard
+          }, 1000);
+        } else {
+          throw new Error('Invalid role');
+        }
+  
+      } catch (error) {
+        errorMessage.classList.remove('d-none');
+        errorMessage.textContent = error.response ? error.response.data.message : 'An error occurred. Please try again.';
+      }
+    });
+  
+    function showNotification(message, type) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.classList.remove('d-none');
+      notification.classList.add('alert-' + type);
+  
+      setTimeout(() => {
+        notification.classList.add('d-none');
+      }, 3000); // Notification disappears after 3 seconds
+    }
+  </script>
+</body>
+
+</html>

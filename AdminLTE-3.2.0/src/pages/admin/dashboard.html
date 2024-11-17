@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penjadwalan Nusput</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+
+  <style>
+    body {
+      background-color: #343a40;
+    }
+
+    .step-card {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      margin-bottom: 15px;
+      background-color: #495057;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-icon {
+      font-size: 2rem; /* Adjusted to consistent size */
+      color: #333333;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+
+    .step-text {
+      font-size: 1rem;
+      color: #e9ecef;
+    }
+
+    .step-text strong {
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+
+    .breadcrumb-item a {
+      color: #007bff;
+    }
+
+    .breadcrumb-item.active {
+      color: #ced4da;
+    }
+
+    .main-footer {
+      background-color: #212529;
+      border-top: 1px solid #495057;
+      color: #e9ecef;
+    }
+  </style>
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <p>Loading</p>
+</div>
+
+  <!-- Navbar -->
+  <div id="navbar"></div>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <div id="sidebar"></div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Langkah-langkah Menggunakan Sistem Penjadwalan Kuliah</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="../../pages/home.html">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Instructions Section -->
+        <div class="card">
+          <div class="card-body">
+            <div class="step-card">
+              <i class="step-icon fas fa-user-tie"></i>
+              <div class="step-text">
+                <strong>Isi Data Dosen</strong>
+                <p>Masukkan NIDN, nama, alamat, gelar S1, S2, dan S3.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <i class="step-icon fas fa-book"></i>
+              <div class="step-text">
+                <strong>Isi Data Mata Kuliah</strong>
+                <p>Masukkan kode, nama mata kuliah, SKS, dan semester.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <i class="step-icon fas fa-chalkboard"></i>
+              <div class="step-text">
+                <strong>Isi Data Kelas</strong>
+                <p>Masukkan kode ruang dan kapasitas ruang.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <i class="step-icon fas fa-users"></i>
+              <div class="step-text">
+                <strong>Isi Data Angkatan</strong>
+                <p>Masukkan jurusan terkait angkatan tersebut.</p>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <i class="step-icon fas fa-calendar-alt"></i>
+              <div class="step-text">
+                <strong>Isi Data Daily Schedule</strong>
+                <p>Masukkan kode, mata kuliah, nama kelas, SKS, hari, jam, ruang, pengampu 1, dan pengampu 2.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<script src="../../../plugins/jquery/jquery.min.js"></script>
+<script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="../../../dist/js/adminlte.js"></script>
+<script src="../../components/js/sidebar-admin/sidebar.js"></script>
+
+<script>
+  function btnLogout() {
+    localStorage.clear();
+    window.location.href = '../login.html';
+  }
+</script>
+
+</body>
+</html>

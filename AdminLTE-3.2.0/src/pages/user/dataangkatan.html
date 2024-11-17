@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Angkatan</title>
+  
+     <!-- Google Font: Source Sans Pro -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+     <!-- Font Awesome Icons -->
+     <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+     <!-- overlayScrollbars -->
+     <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+     <!-- Theme style -->
+     <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+ 
+     <!-- jQuery harus dimuat di bagian head agar siap digunakan -->
+     <script src="../../../plugins/jquery/jquery.min.js"></script>
+ 
+     <!-- Sidebar dan Navbar dimuat setelah DOM siap -->
+  
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+    
+   
+    
+    <!-- Preloader (optional) -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar (optional, jika diperlukan) -->
+    <nav class="main-header navbar navbar-expand navbar-dark">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Logo -->
+      <a href="index.html" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">Penjadwalan</span>
+      </a>
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar"></div>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Data Angkatan</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Data Angkatan</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Your main content here -->
+          <div class="container mt-5">
+            <h1>Data Angkatan</h1>
+
+            <!-- Tabel Data Angkatan -->
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>No</th>
+                    <th>Jurusan</th>
+                  </tr>
+                </thead>
+                <tbody id="angkatanTableBody">
+                  <!-- Data akan ditampilkan di sini -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer" id="footer"></footer>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- AdminLTE App -->
+  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+
+  <!-- Script untuk mengelola data -->
+  <script>
+    $(document).ready(function () {
+      let angkatanData = [];
+
+      // Fetch data dari API saat halaman pertama kali dimuat
+      fetchData();
+
+      // Function untuk fetch data dari API
+      function fetchData() {
+        $.ajax({
+          url: 'http://127.0.0.1:8000/api/angkatan',
+          method: 'GET',
+          success: function (response) {
+            angkatanData = response.results;
+            renderTable();
+          },
+          error: function (error) {
+            console.error('Error fetching data:', error);
+          }
+        });
+      }
+
+      // Function untuk render tabel data angkatan
+      function renderTable() {
+        const angkatanTableBody = $('#angkatanTableBody');
+        angkatanTableBody.empty();
+
+        angkatanData.forEach((data, index) => {
+          const row = 
+            `<tr>
+                <td>${index + 1}</td>
+                <td>${data.jurusan}</td>
+             </tr>`;
+          angkatanTableBody.append(row);
+        });
+      }
+
+     
+    });
+    
+  </script>
+     <script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
+
+</body>
+</html>

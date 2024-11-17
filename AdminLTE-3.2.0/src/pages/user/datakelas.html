@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Ruang Kelas</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+
+    <!-- jQuery harus dimuat di bagian head agar siap digunakan -->
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <!-- Sidebar dan Navbar dimuat setelah DOM siap -->
+   
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="../../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <div id="navbar"></div>
+
+        <!-- Main Sidebar Container -->
+        <div id="sidebar"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Data Ruang Kelas</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Data Ruang Kelas</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="container mt-5">
+                        <h1>Data Ruang Kelas</h1>
+                        <!-- Tabel Data Ruang Kelas -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Kode Ruang</th>
+                                        <th>Kapasitas Ruang</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody id="ruangKelasTableBody">
+                                    <!-- Data Ruang Kelas Akan Ditambahkan Di Sini -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Bootstrap JS dari CDN -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+                    <script>
+                        $(document).ready(function () {
+                            let ruangKelasData = [];
+
+                            // Fetch data dari API saat halaman pertama kali dimuat
+                            fetchData();
+
+                            // Function untuk fetch data dari API
+                            function fetchData() {
+                                $.ajax({
+                                    url: 'http://127.0.0.1:8000/api/kelas',
+                                    method: 'GET',
+                                    success: function (response) {
+                                        ruangKelasData = response.results;
+                                        renderTable();
+                                    },
+                                    error: function (error) {
+                                        console.error('Error fetching data:', error);
+                                    }
+                                });
+                            }
+
+                            // Function untuk render tabel data ruang kelas
+                            function renderTable() {
+                                const ruangKelasTableBody = $('#ruangKelasTableBody');
+                                ruangKelasTableBody.empty();
+
+                                ruangKelasData.forEach((data, index) => {
+                                    const row = `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${data.kode_ruang}</td>
+                                            <td>${data.kapasitas_ruang}</td>
+                                        </tr>
+                                    `;
+                                    ruangKelasTableBody.append(row);
+                                });
+                            }
+
+                           
+                        });
+
+                        function btnLogout(){
+                            localStorage.clear();
+                            window.location.href = '../login.html'
+                        }
+                    </script>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2023 <a href="#">Nusput</a>.</strong>
+            All rights reserved.
+        </footer>
+    </div>
+
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+  <script src="../../../plugins/jquery/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .register-container {
+      background-color: #343a40;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      margin-top: 80px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .register-container h3 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-size: 2em;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+      box-shadow: none;
+      transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .form-control:hover, .form-control:focus {
+      border-color: #007bff;
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0056b3, #00408d);
+      transform: scale(1.05);
+    }
+
+    .alert {
+      font-size: 1em;
+      border-radius: 5px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    #successMessage, #errorMessage {
+      display: none;
+    }
+
+    #successMessage {
+      color: #28a745;
+      background-color: #ffffff;
+    }
+
+    #errorMessage {
+      color: #dc3545;
+      background-color: #ffffff;
+    }
+
+    .alert {
+  font-size: 1em;
+  border-radius: 5px;
+  padding: 10px 15px;
+  display: none; /* Default tidak terlihat */
+  align-items: center;
+  animation: slideFadeIn 3s ease-out forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+    @media (max-width: 767px) {
+      .register-container {
+        padding: 20px;
+        margin-top: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <p>Loading</p>
+    </div>
+
+    <nav class="main-header navbar navbar-expand navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+      </ul>
+    </nav>
+
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <a href="index.html" class="brand-link">
+        <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">Penjadwalan</span>
+      </a>
+      <div id="sidebar" class="sidebar"></div>
+    </aside>
+
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Register</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Register</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <div class="register-container">
+                <h3>tambah akun</h3>
+                <form id="registerForm">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="name" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">tambah</button>
+                </form>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </section>
+    </div>
+
+    <footer class="main-footer">
+      <div id="successMessage" class="alert alert-success mt-3">
+        <i class="fas fa-check-circle"></i> Your account has been successfully registered.
+      </div>
+      <div id="errorMessage" class="alert alert-danger mt-3">
+        <i class="fas fa-exclamation-circle"></i> An error occurred. Please try again.
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../dist/js/adminlte.js"></script>
+  <script src="../../components/js/sidebar-admin/sidebar.js"></script>
+
+  <script>
+   document.getElementById('registerForm').addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const successMessage = document.getElementById('successMessage');
+  const errorMessage = document.getElementById('errorMessage');
+
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/register', {
+      name: name,
+      email: email,
+      password: password
+    });
+
+    // Tampilkan pesan sukses
+    successMessage.style.display = 'flex';
+    successMessage.style.animation = 'slideFadeIn 0.5s ease-out forwards';
+    errorMessage.style.display = 'none';
+    document.getElementById('registerForm').reset();
+
+    // Sembunyikan pesan setelah 5 detik
+    setTimeout(() => {
+      successMessage.style.animation = 'fadeOut 0.5s forwards';
+      setTimeout(() => (successMessage.style.display = 'none'), 500);
+    }, 5000);
+  } catch (error) {
+    // Tampilkan pesan error
+    errorMessage.style.display = 'flex';
+    errorMessage.style.animation = 'slideFadeIn 0.5s ease-out forwards';
+    successMessage.style.display = 'none';
+
+    // Sembunyikan pesan setelah 5 detik
+    setTimeout(() => {
+      errorMessage.style.animation = 'fadeOut 0.5s forwards';
+      setTimeout(() => (errorMessage.style.display = 'none'), 500);
+    }, 5000);
+  }
+
+  function btnLogout(){
+                            localStorage.clear();
+                            window.location.href = '../../login.html'
+                        }
+});
+
+  </script>
+
+</body>
+
+</html>

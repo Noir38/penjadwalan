@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Penjadwalan Matakuliah</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <p>Loading</p>
+  </div>
+
+    <!-- Navbar -->
+    <div id="navbar"></div>
+    <!-- Main Sidebar Container -->
+    <div id="sidebar"></div>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Penjadwalan Matakuliah</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Penjadwalan Matakuliah</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th>No</th>
+                  <th>Kode</th>
+                  <th>Matakuliah</th>
+                  <th>Nama Kelas</th>
+                  <th>SKS</th>
+                  <th>Hari</th>
+                  <th>Jam</th>
+                  <th>Ruang</th>
+                  <th>Pengampu 1</th>
+                  <th>Pengampu 2</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="matkulTableBody">
+                <!-- Data Matakuliah Akan Ditambahkan Di Sini -->
+              </tbody>
+            </table>
+          </div>
+          <div class=" d-flex flex-row-reverse">
+            <button id="downloadPDF" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Download PDF</button>
+            <button class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#matkulModal"><i
+                class="fas fa-plus-circle"></i> Tambah Jadwal Matakuliah</button>
+          </div>
+
+
+          <!-- Modal Form Tambah/Edit Matakuliah -->
+          <div class="modal fade" id="matkulModal" tabindex="-1" aria-labelledby="matkulModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="matkulModalLabel">Tambah Jadwal Matakuliah</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="matkulForm">
+                    <div class="form-group">
+                      <label for="kode">Kode</label>
+                      <select class="form-control" id="kode" required></select>
+                    </div>
+                    <div class="form-group">
+                      <label for="matakuliah">Mata Kuliah</label>
+                      <input type="text" class="form-control" id="matakuliah" required readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="jurusan">Jurusan</label>
+                      <select class="form-control" id="jurusan" required></select>
+                    </div>
+                    <div class="form-group">
+                      <label for="sks">SKS</label>
+                      <input type="text" class="form-control" id="sks" required readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="hari">Hari</label>
+                      <select class="form-control" id="hari" required>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="jam">Jam</label>
+                      <input type="time" class="form-control" id="jam" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="ruang">Ruang</label>
+                      <select class="form-control" id="ruang" required></select>
+                    </div>
+                    <div class="form-group">
+                      <label for="pengampu1">Pengampu 1</label>
+                      <select class="form-control" id="pengampu1" required></select>
+                    </div>
+                    <div class="form-group">
+                      <label for="pengampu2">Pengampu 2</label>
+                      <select class="form-control" id="pengampu2"></select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bootstrap JS -->
+          
+
+        </div>
+        </section>
+      </div>
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline-block">
+          <b>Version</b> 3.2.0
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <!-- Script untuk Mengelola Data -->
+    <script>
+      $(document).ready(function () {
+        let matkulData = [];
+        let kodeMatakuliah = [];
+        let ruangData = [];
+        let dosenData = [];
+        let jurusanData = [];
+        let editingIndex = -1;
+
+        // Fetch data from the API when the page loads
+        fetchData();
+        fetchMatakuliahData();
+        fetchKodeRuang();
+        fetchDosenData();
+        fetchJurusanData();
+
+        // Fetch existing schedule data
+        function fetchData() {
+          $.ajax({
+            url: 'http://127.0.0.1:8000/api/daily',
+            method: 'GET',
+            success: function (response) {
+              matkulData = response.results;
+              renderTable();
+            },
+            error: function (error) {
+              console.error('Error fetching daily data:', error);
+            }
+          });
+        }
+
+        // Handle form submission for adding or editing data
+        $('#matkulForm').submit(function (e) {
+          e.preventDefault();
+          const kode = $('#kode').val();
+          const matakuliah = $('#matakuliah').val();
+          const sks = $('#sks').val();
+          const hari = $('#hari').val();
+          const jam = $('#jam').val();
+          const ruang = $('#ruang').val();
+          const pengampu1 = $('#pengampu1').val();
+          const pengampu2 = $('#pengampu2').val();
+          const jurusan = $('#nama_kelas').val();
+          const newData = {
+            kode,
+            matakuliah,
+            sks,
+            hari,
+            jam,
+            ruang,
+            pengampu1,
+            pengampu2,
+            jurusan
+          };
+
+          if (editingIndex === -1) {
+            // Adding new data
+            $.ajax({
+              url: 'http://127.0.0.1:8000/api/adddaily',
+              method: 'POST',
+              data: newData,
+              success: function (response) {
+                matkulData.push(response.data);
+                renderTable();
+                $('#matkulModal').modal('hide');
+                $('#matkulForm')[0].reset();
+              },
+              error: function (error) {
+                console.error('Error adding data:', error);
+              }
+            });
+          } else {
+            // Updating existing data
+            const id = matkulData[editingIndex].id; // Assuming `id` is available in fetched data
+            $.ajax({
+              url: `http://127.0.0.1:8000/api/daily/${id}`,
+              method: 'PUT',
+              data: newData,
+              success: function (response) {
+                matkulData[editingIndex] = response.data;
+                renderTable();
+                $('#matkulModal').modal('hide');
+                $('#matkulForm')[0].reset();
+                editingIndex = -1;
+              },
+              error: function (error) {
+                console.error('Error updating data:', error);
+              }
+            });
+          }
+        });
+
+        // Edit schedule data
+        window.editMatkul = function (index) {
+          editingIndex = index;
+          const data = matkulData[index];
+          $('#kode').val(data.kode).trigger('change');
+          $('#matakuliah').val(data.matakuliah);
+          $('#sks').val(data.sks);
+          $('#hari').val(data.hari);
+          $('#jam').val(data.jam);
+          $('#ruang').val(data.ruang);
+          $('#pengampu1').val(data.pengampu1);
+          $('#pengampu2').val(data.pengampu2);
+          $('#jurusan').val(data.nama_kelas);
+          $('#matkulModal').modal('show');
+        };
+
+        // Delete schedule data
+        window.deleteMatkul = function (index) {
+          const id = matkulData[index].id;
+          if (confirm('Yakin ingin menghapus data ini?')) {
+            $.ajax({
+              url: `http://127.0.0.1:8000/api/dailydelete/${id}`,
+              method: 'DELETE',
+              success: function () {
+                matkulData.splice(index, 1);
+                renderTable();
+              },
+              error: function (error) {
+                console.error('Error deleting data:', error);
+              }
+            });
+          }
+        };
+
+        // Fetch additional data for form fields
+        function fetchMatakuliahData() {
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/matakuliah",
+            method: "GET",
+            success: function (data) {
+              kodeMatakuliah = data.results.map(item => ({
+                kode: item.kode,
+                nama: item.nama,
+                sks: item.sks
+              }));
+
+              let kodeOptions = kodeMatakuliah.map(item =>
+                `<option value="${item.kode}">${item.kode}</option>`);
+              $('#kode').html(kodeOptions.join(''));
+            },
+            error: function () {
+              console.error("Error fetching matakuliah data");
+            }
+          });
+        }
+
+        function fetchKodeRuang() {
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/kelas",
+            method: "GET",
+            success: function (data) {
+              ruangData = data.results.map(item => ({
+                kode: item.kode,
+                kode_ruang: item.kode_ruang
+              }));
+              let ruangOptions = ruangData.map(item =>
+                `<option value="${item.kode_ruang}">${item.kode_ruang}</option>`);
+              $('#ruang').html(ruangOptions.join(''));
+            },
+            error: function () {
+              console.error("Error fetching ruang data");
+            }
+          });
+        }
+
+        function fetchDosenData() {
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/dosen",
+            method: "GET",
+            success: function (data) {
+              dosenData = data.results.map(item => ({
+                id: item.id,
+                nama: item.nama
+              }));
+              let dosenOptions = dosenData.map(item =>
+                `<option value="${item.nama}">${item.nama}</option>`);
+              $('#pengampu1, #pengampu2').html(dosenOptions.join(''));
+            },
+            error: function () {
+              console.error("Error fetching dosen data");
+            }
+          });
+        }
+
+        function fetchJurusanData() {
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/angkatan",
+            method: "GET",
+            success: function (data) {
+              jurusanData = data.results.map(item => ({
+                id: item.id,
+                jurusan: item.jurusan
+              }));
+              let jurusanOptions = jurusanData.map(item =>
+                `<option value="${item.jurusan}">${item.jurusan}</option>`);
+              $('#jurusan').html(jurusanOptions.join(''));
+            },
+            error: function () {
+              console.error("Error fetching jurusan data");
+            }
+          });
+        }
+
+        // When a code is selected, populate related fields
+        $('#kode').change(function () {
+          let selectedKode = $(this).val();
+          let selectedMatakuliah = kodeMatakuliah.find(item => item.kode === selectedKode);
+
+          if (selectedMatakuliah) {
+            $('#matakuliah').val(selectedMatakuliah.nama);
+            $('#sks').val(selectedMatakuliah.sks);
+          } else {
+            console.warn("Matakuliah not found for selected code.");
+          }
+        });
+
+        function renderTable() {
+          let tableBody = matkulData
+            .filter(data => data && data.kode)
+            .map((data, index) => `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${data.kode}</td>
+              <td>${data.matakuliah || '-'}</td>
+              <td>${data.nama_kelas || '-'}</td>
+              <td>${data.sks || '-'}</td>
+              <td>${data.hari || '-'}</td>
+              <td>${data.jam || '-'}</td>
+              <td>${data.ruang || '-'}</td>
+              <td>${data.pengampu1 || '-'}</td>
+              <td>${data.pengampu2 || '-'}</td>
+              <td>
+                <button class="btn btn-sm btn-warning" onclick="editMatkul(${index})">Edit</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteMatkul(${index})">Delete</button>
+              </td>
+            </tr>
+          `);
+
+          $('#matkulTableBody').html(tableBody.join(''));
+        }
+
+        function btnLogout() {
+          localStorage.clear();
+          window.location.href = '../login.html'
+        }
+
+        document.getElementById("downloadPDF").addEventListener("click", function () {
+          const {
+            jsPDF
+          } = window.jspdf;
+          const pdf = new jsPDF();
+
+          let title = "Jadwal Matakuliah";
+          pdf.setFontSize(16);
+          pdf.text(title, 10, 10);
+
+          // Prepare table content
+          let content = [
+            ["No", "Kode", "Matakuliah", "Kelas", "SKS", "Hari", "Jam", "Ruang", "Pengampu 1",
+              "Pengampu 2"
+            ]
+          ];
+          matkulData.forEach((data, index) => {
+            content.push([
+              index + 1,
+              data.kode || "-",
+              data.matakuliah || "-",
+              data.nama_kelas || "-",
+              data.sks || "-",
+              data.hari || "-",
+              data.jam || "-",
+              data.ruang || "-",
+              data.pengampu1 || "-",
+              data.pengampu2 || "-"
+            ]);
+          });
+
+          // Generate table in PDF
+          pdf.autoTable({
+            head: content.slice(0, 1), // Header row
+            body: content.slice(1), // Data rows
+            startY: 20
+          });
+
+          pdf.save("jadwal-matakuliah.pdf");
+        });
+
+      });
+
+      function btnLogout(){
+                      localStorage.clear();
+                      window.location.href = '../login.html'
+                  }
+
+    </script>
+
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+</body>
+
+</html>
+
+
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+</body>
+
+</html>

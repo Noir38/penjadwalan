@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Ruang Kelas</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+
+    <!-- jQuery harus dimuat di bagian head agar siap digunakan -->
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <!-- Sidebar dan Navbar dimuat setelah DOM siap -->
+   
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <p>Loading</p>
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="index.html" class="brand-link">
+                <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">Penjadwalan</span>
+            </a>
+            <div id="sidebar" class="sidebar"></div>
+        </aside>
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Data Ruang Kelas</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Data Ruang Kelas</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="">
+                        <div class="card-body">
+                            <!-- Tabel Data Ruang Kelas -->
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-bordered">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode Ruang</th>
+                                            <th>Kapasitas Ruang</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ruangKelasTableBody">
+                                        <!-- Data Ruang Kelas Akan Ditambahkan Di Sini -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Button untuk tambah data ruang kelas -->
+                            <div class="d-flex flex-row-reverse">
+                                <button class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#ruangKelasModal">
+                                    <i class="fas fa-plus-circle"></i> Tambah Data Ruang Kelas
+                                </button>
+                            </div>
+
+                            <!-- Modal Form Tambah/Edit Ruang Kelas -->
+                            <div class="modal fade" id="ruangKelasModal" tabindex="-1" aria-labelledby="ruangKelasModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ruangKelasModalLabel">Tambah Data Ruang Kelas</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="ruangKelasForm">
+                                                <div class="mb-3">
+                                                    <label for="kodeRuang" class="form-label">Kode Ruang</label>
+                                                    <input type="text" class="form-control" id="kodeRuang" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kapasitasRuang" class="form-label">Kapasitas Ruang</label>
+                                                    <input type="number" class="form-control" id="kapasitasRuang" required>
+                                                </div>
+                                                <input type="hidden" id="editingIndex">
+                                                <button type="submit" class="btn btn-success">Simpan</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+                    <!-- Bootstrap JS dari CDN -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+                    <script>
+                        $(document).ready(function () {
+                            let ruangKelasData = [];
+
+                            // Fetch data dari API saat halaman pertama kali dimuat
+                            fetchData();
+
+                            // Function untuk fetch data dari API
+                            function fetchData() {
+                                $.ajax({
+                                    url: 'http://127.0.0.1:8000/api/kelas',
+                                    method: 'GET',
+                                    success: function (response) {
+                                        ruangKelasData = response.results;
+                                        renderTable();
+                                    },
+                                    error: function (error) {
+                                        console.error('Error fetching data:', error);
+                                    }
+                                });
+                            }
+
+                            // Function untuk render tabel data ruang kelas
+                            function renderTable() {
+                                const ruangKelasTableBody = $('#ruangKelasTableBody');
+                                ruangKelasTableBody.empty();
+
+                                ruangKelasData.forEach((data, index) => {
+                                    const row = `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${data.kode_ruang}</td>
+                                            <td>${data.kapasitas_ruang}</td>
+                                            <td>
+                                                <button class="btn btn-warning" onclick="editDataRuangKelas(${index})">Edit</button>
+                                                <button class="btn btn-danger" onclick="deleteDataRuangKelas(${data.id})">Delete</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    ruangKelasTableBody.append(row);
+                                });
+                            }
+
+                            // Function untuk menambah atau mengedit data ruang kelas
+                            $('#ruangKelasForm').on('submit', function (e) {
+                                e.preventDefault();
+
+                                const kodeRuang = $('#kodeRuang').val();
+                                const kapasitasRuang = $('#kapasitasRuang').val();
+                                const editingIndex = $('#editingIndex').val();
+
+                                const newData = { kode_ruang: kodeRuang, kapasitas_ruang: kapasitasRuang };
+
+                                if (editingIndex) {
+                      // Update data dosen (PUT request)
+                      $.ajax({
+                          url: `http://127.0.0.1:8000/api/kelasupdate/${ruangKelasData[editingIndex].id}`,
+                          method: 'PUT',
+                          data: JSON.stringify(newData),
+                          contentType: 'application/json',
+                          success: function (response) {
+                              fetchData(); // Refresh data dari server setelah update
+                              resetForm();
+                          },
+                          error: function (error) {
+                              console.error('Failed to update data:', error);
+                          }
+                      });
+                  } else {
+                                    //`http://127.0.0.1:8000/api/kelasupdate/${ruangKelasData[editingIndex].id}`,
+                                    // Tambah data ruang kelas baru (POST request)
+                                    $.ajax({
+                                        url: 'http://127.0.0.1:8000/api/addkelas',
+                                        method: 'POST',
+                                        data: JSON.stringify(newData),
+                                        contentType: 'application/json',
+                                        success: function (response) {
+                                            ruangKelasData.push(newData);
+                                            renderTable();
+                                            resetForm();
+                                        },
+                                        error: function (error) {
+                                            console.error('Failed to add data:', error);
+                                        }
+                                    });
+                                }
+                            });
+
+                            // Function untuk reset form
+                            function resetForm() {
+                                $('#ruangKelasForm')[0].reset();
+                                $('#editingIndex').val('');
+                                let modal = bootstrap.Modal.getInstance(document.getElementById('ruangKelasModal'));
+                                modal.hide();
+                            }
+
+                            // Function untuk edit data ruang kelas
+                            window.editDataRuangKelas = function (index) {
+                                const data = ruangKelasData[index];
+                                $('#kodeRuang').val(data.kode_ruang);
+                                $('#kapasitasRuang').val(data.kapasitas_ruang);
+                                $('#editingIndex').val(index);
+
+                                let modal = new bootstrap.Modal(document.getElementById('ruangKelasModal'));
+                                modal.show();
+                            }
+
+                            // Function untuk menghapus data ruang kelas
+                            window.deleteDataRuangKelas = function (id) {
+                                if (confirm('Are you sure you want to delete this data?')) {
+                                    $.ajax({
+                                        url: `http://127.0.0.1:8000/api/kelasdelete/${id}`,
+                                        method: 'DELETE',
+                                        success: function (response) {
+                                            ruangKelasData = ruangKelasData.filter(d => d.id !== id);
+                                            renderTable();
+                                        },
+                                        error: function (error) {
+                                            console.error('Failed to delete data:', error);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                        function btnLogout(){
+                            localStorage.clear();
+                            window.location.href = '../login.html'
+                        }
+                    </script>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2023 <a href="#">Nusput</a>.</strong>
+            All rights reserved.
+        </footer>
+    </div>
+
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar.js"></script>
+</body>
+
+</html>
