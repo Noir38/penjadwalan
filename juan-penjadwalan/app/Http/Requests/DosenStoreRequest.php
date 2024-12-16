@@ -22,12 +22,12 @@ class DosenStoreRequest extends FormRequest
     public function rules(): array 
     {
         return [
-            'nama' => 'required',
-            'nidn' => 'required|numeric',
-            'alamat' => 'required',
-            's1' => 'required',
-            's2' => 'required',
-            's3' => 'required',
+            'nidn' => 'required|string',
+            'nama' => 'required|string',
+            'alamat' => 'nullable|string',
+            's1' => 'nullable|string',
+            's2' => 'nullable|string',
+            's3' => 'nullable|string',
         ];
     }
      

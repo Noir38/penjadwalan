@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::post('/change-password', [AuthController::class, 'changePassword']);
 Route::post('login', [AuthController::class,'login']);
 Route::post('register', [AuthController::class,'register']);
 Route::get('user/{id}', [AuthController::class, 'getById']);
@@ -75,3 +75,9 @@ Route::put('daily/{id}', [DailyscheduleController::class, 'show']);
 Route::put('dailyupdate/{id}', [DailyscheduleController::class, 'update']);
 Route::delete('dailydelete/{id}', [DailyscheduleController::class, 'destroy']);
 
+
+// Route::middleware(['cors'])->group(function () {
+//     Route::get('/dailyschedule', [DailyscheduleController::class, 'index']);
+//     Route::post('/dailyschedule', [DailyscheduleController::class, 'store']);
+  
+// });

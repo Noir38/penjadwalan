@@ -1,96 +1,201 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      color: #333;
+    }
+
+    /* Sidebar Styling */
+    .main-sidebar {
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      background-color: #343a40;
+      padding-top: 20px;
+      color: #fff;
+      transition: width 0.3s ease;
+    }
+
+    .brand-link {
+      color: #f4f6f9;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .brand-image {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 5px;
+    }
+
+    /* User Panel */
+    .user-panel .info {
+      color: #adb5bd;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    /* Sidebar Menu */
+    .nav-sidebar .nav-item {
+      list-style: none;
+    }
+
+    .nav-sidebar .nav-link {
+      color: #adb5bd;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-sidebar .nav-link:hover {
+      background-color: #495057;
+      color: #fff;
+    }
+
+    /* Active Link */
+    .nav-sidebar .nav-link.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .nav-sidebar .nav-icon {
+      margin-right: 10px;
+    }
+
+    /* Logout Button */
+    .logout-button {
+      color: #f44336;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .logout-button:hover {
+      background-color: #f8d7da;
+      color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">user 3</span>
-    </a>
+    <div href="#" class="brand-link">
+      <img src="../../../dist/img/nsup.png" class="brand-image">
+      <span class="brand-text font-weight-bold">Nusa Putra</span>
+    </div>
   
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
-        <div class="info">
-          <a href="#" class="d-block" id="username">Nama</a>
-          <span id="userEmail">Email Pengguna</span>
-        </div>
-        
-        
-      </div>
-  
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
+      <!-- Sidebar user panel -->
+      <div class="user-panel mt-4 pl-4 pt-2 d-flex">
+          <p  class=" brand-text font-weight-bold" id="userName">Penguna User</p>
       </div>
   
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="./../user/dashboard.html" class="nav-link active">
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a href="./../user/dashboard.html" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard VA</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="./../user/datadosen.html" class="nav-link active">
+  
+          <!-- Data Dosen -->
+          <li class="nav-item">
+            <a href="./../user/datadosen.html" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
-              <p>Data dosen</p>
+              <p>Data Dosen</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="./../user/datamatkul.html" class="nav-link active">
+  
+          <!-- Data Mata Kuliah -->
+          <li class="nav-item">
+            <a href="./../user/datamatkul.html" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
-              <p>Data matkul</p>
+              <p>Data Mata Kuliah</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="./../user/datakelas.html" class="nav-link active">
+  
+          <!-- Data Kelas -->
+          <li class="nav-item">
+            <a href="./../user/datakelas.html" class="nav-link">
               <i class="nav-icon fas fa-chalkboard"></i>
-              <p>Data kelas</p>
+              <p>Data Kelas</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="./../user/dataangkatan.html" class="nav-link active">
+  
+          <!-- Data Angkatan -->
+          <li class="nav-item">
+            <a href="./../user/dataangkatan.html" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
-              <p>Data angkatan</p>
+              <p>Data Angkatan</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="./../user/dailyschedule.html" class="nav-link active">
+  
+          <!-- Daily Schedule -->
+          <li class="nav-item">
+            <a href="./../user/dailyschedule.html" class="nav-link">
               <i class="nav-icon fas fa-calendar"></i>
-              <p>Daily schedule</p>
+              <p>Daily Schedule</p>
             </a>
           </li>
   
           <!-- Logout button -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active" id="logoutButton">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <button onclick="btnLogout()">Logout</button>
+          <li class="nav-item">
+            <a class="logout-button" onclick="btnLogout()" id="logoutButton">
+              <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+              Logout
             </a>
+       
           </li>
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
   </aside>
-  
+
   <script>
-    document.getElementById('logoutButton').addEventListener('click', function() {
-      // Hapus token dari localStorage
+    // Highlight Active Menu Item
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Logout Functionality
+    document.getElementById('logoutButton').addEventListener('click', function () {
+      // Remove token from localStorage
       localStorage.removeItem('token');
-      
-      // Redirect ke halaman login
+
+      // Redirect to login page
       window.location.href = '/login.html';
     });
+
+    // Check if user is authenticated
+    if (!localStorage.getItem('token')) {
+      // Redirect to login if token is not present
+      window.location.href = '/login.html';
+    }
   </script>
-  
+</body>
+</html>

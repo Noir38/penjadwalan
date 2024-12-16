@@ -97,101 +97,108 @@
 <body>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="../../../dist/img/nsup.png" alt="Universitas Nusa Putra Logo" class="brand-image">
+    <div href="#" class="brand-link">
+      <img src="../../../dist/img/nsup.png" class="brand-image">
       <span class="brand-text font-weight-bold">Nusa Putra</span>
-    </a>
+    </div>
   
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block" id="userName">Nama Pengguna</a>
-          <span id="userEmail"></span>
-        </div>
+      <div class="user-panel mt-4 pl-4 pt-2 d-flex">
+          <p  class=" brand-text font-weight-bold" id="userName">Penguna Admin</p>
       </div>
   
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Dashboard -->
-          <li class="nav-item">
-            <a href="./../admin/dashboard.html" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard VA</p>
-            </a>
-          </li>
-  
-          <!-- Data Dosen -->
-          <li class="nav-item">
-            <a href="./../admin/datadosen.html" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Data Dosen</p>
-            </a>
-          </li>
-  
-          <!-- Data Mata Kuliah -->
-          <li class="nav-item">
-            <a href="./../admin/datamatkul.html" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>Data Mata Kuliah</p>
-            </a>
-          </li>
-  
-          <!-- Data Kelas -->
-          <li class="nav-item">
-            <a href="./../admin/datakelas.html" class="nav-link">
-              <i class="nav-icon fas fa-chalkboard"></i>
-              <p>Data Kelas</p>
-            </a>
-          </li>
-  
-          <!-- Data Angkatan -->
-          <li class="nav-item">
-            <a href="./../admin/dataangkatan.html" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Data Angkatan</p>
-            </a>
-          </li>
-  
-          <!-- Daily Schedule -->
-          <li class="nav-item">
-            <a href="./../admin/dailyschedule.html" class="nav-link">
-              <i class="nav-icon fas fa-calendar"></i>
-              <p>Daily Schedule</p>
-            </a>
-          </li>
-  
-          <!-- Register -->
-          <li class="nav-item">
-            <a href="./../admin/register.html" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-list"></i>
-              <p>Register</p>
-            </a>
-          </li>
-  
-          <!-- Logout button -->
-          <li class="nav-item">
-            <a class="logout-button" onclick="btnLogout()" id="logoutButton">
-              <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
-              Logout
-            </a>
-       
-          </li>
-        </ul>
-      </nav>
+      <!-- Sidebar Menu -->
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Dashboard -->
+    <li class="nav-item">
+      <a href="./../admin/dashboard.html" class="nav-link" data-url="dashboard.html">
+        <i class="nav-icon fas fa-tachometer-alt"></i>
+        <p>Dashboard VA</p>
+      </a>
+    </li>
+
+    <!-- Data Dosen -->
+    <li class="nav-item">
+      <a href="./../admin/datadosen.html" class="nav-link" data-url="datadosen.html">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Data Dosen</p>
+      </a>
+    </li>
+
+    <!-- Data Mata Kuliah -->
+    <li class="nav-item">
+      <a href="./../admin/datamatkul.html" class="nav-link" data-url="datamatkul.html">
+        <i class="nav-icon fas fa-book"></i>
+        <p>Data Mata Kuliah</p>
+      </a>
+    </li>
+
+    <!-- Data Kelas -->
+    <li class="nav-item">
+      <a href="./../admin/datakelas.html" class="nav-link" data-url="datakelas.html">
+        <i class="nav-icon fas fa-chalkboard"></i>
+        <p>Data Kelas</p>
+      </a>
+    </li>
+
+    <!-- Data Angkatan -->
+    <li class="nav-item">
+      <a href="./../admin/dataangkatan.html" class="nav-link" data-url="dataangkatan.html">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Data Angkatan</p>
+      </a>
+    </li>
+
+    <!-- Daily Schedule -->
+    <li class="nav-item">
+      <a href="./../admin/dailyschedule.html" class="nav-link" data-url="dailyschedule.html">
+        <i class="nav-icon fas fa-calendar"></i>
+        <p>Daily Schedule</p>
+      </a>
+    </li>
+
+    <!-- Register -->
+    <li class="nav-item">
+      <a href="./../admin/register.html" class="nav-link" data-url="register.html">
+        <i class="nav-icon fas fa-clipboard-list"></i>
+        <p>Register</p>
+      </a>
+    </li>
+
+    <!-- Logout button -->
+    <li class="nav-item">
+      <a class="logout-button" onclick="btnLogout()" id="logoutButton">
+        <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+        Logout
+      </a>
+    </li>
+  </ul>
+</nav>
+
     </div>
   </aside>
 
   <script>
-    // Highlight Active Menu Item
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', function() {
-        document.querySelectorAll('.nav-link').forEach(item => item.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
+   
+  // Get the current URL's filename
+  const currentUrl = window.location.pathname.split('/').pop();
+
+  // Get all sidebar links
+  const sidebarLinks = document.querySelectorAll('.nav-link');
+
+  // Loop through sidebar links and add 'active' class to the matching link
+  sidebarLinks.forEach(link => {
+    const linkUrl = link.getAttribute('data-url');
+    if (linkUrl === currentUrl) {
+      link.classList.add('active');
+    }
+  });
+
+
 
     // Logout Functionality
     document.getElementById('logoutButton').addEventListener('click', function () {

@@ -12,6 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
 });
 
+     // Get the current URL's filename
+  const currentUrl = window.location.pathname.split('/').pop();
+
+  // Get all sidebar links
+  const sidebarLinks = document.querySelectorAll('.nav-link');
+
+  // Loop through sidebar links and add 'active' class to the matching link
+  sidebarLinks.forEach(link => {
+    const linkUrl = link.getAttribute('data-url');
+    if (linkUrl === currentUrl) {
+      link.classList.add('active');
+    }
+  });
+
+
+
 async function fetchUserData() {
   try {
     // Kirim permintaan ke endpoint /user-data

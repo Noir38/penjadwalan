@@ -1,165 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Penjadwalan Nusput - Dashboard User</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Penjadwalan Nusput - Dashboard User</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=fallback">
 
-  <style>
-    body {
-      background-color: #343a40;
-    }
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
 
-    .info-card {
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      margin-bottom: 15px;
-      background-color: #495057;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
-    .info-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
-    .info-icon {
-      font-size: 2rem;
-      color: #333333;
-      background-color: #ffffff;
-      padding: 15px;
-      border-radius: 50%;
-      margin-right: 20px;
-    }
+    <style>
+        body {
+            background-color: #343a40;
+        }
 
-    .info-text {
-      font-size: 1rem;
-      color: #e9ecef;
-    }
+        .info-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: #495057;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .info-text strong {
-      font-size: 1.1rem;
-      color: #ffffff;
-    }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
 
-    .breadcrumb-item a {
-      color: #007bff;
-    }
+        .info-icon {
+            font-size: 2rem;
+            color: #333333;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
 
-    .breadcrumb-item.active {
-      color: #ced4da;
-    }
+        .info-text {
+            font-size: 1rem;
+            color: #e9ecef;
+        }
 
-    .main-footer {
-      background-color: #212529;
-      border-top: 1px solid #495057;
-      color: #e9ecef;
-    }
-  </style>
+        .info-text strong {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .breadcrumb-item a {
+            color: #007bff;
+        }
+
+        .breadcrumb-item.active {
+            color: #ced4da;
+        }
+
+        .main-footer {
+            background-color: #212529;
+            border-top: 1px solid #495057;
+            color: #e9ecef;
+        }
+    </style>
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+    <div class="wrapper">
 
-  <!-- Navbar -->
-  <div id="navbar"></div>
-  <!-- /.navbar -->
+        <!-- Navbar -->
+        <div id="navbar"></div>
 
-  <!-- Main Sidebar Container -->
-  <div id="sidebar"></div>
+        <!-- Main Sidebar Container -->
+        <div id="sidebar"></div>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Selamat datang di sistem Penjadwalan Kuliah Nusa Putra</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard User</li>
-            </ol>
-          </div>
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <p>Loading</p>
         </div>
-      </div>
-    </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Information Section -->
-        <div class="card">
-          <div class="card-body">
-            <div class="info-card">
-              <i class="info-icon fas fa-calendar-alt"></i>
-              <div class="info-text">
-                <strong>Jadwal Kuliah</strong>
-                <p>Periksa jadwal kuliah harian Anda yang telah diatur oleh administrator.</p>
-              </div>
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Content Header -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Selamat datang di sistem Penjadwalan Kuliah Nusa Putra</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard User</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="info-card">
-              <i class="info-icon fas fa-user"></i>
-              <div class="info-text">
-                <strong>pendataan</strong>
-                <p>Perbarui informasi data Anda seperti Nama, Matakuliah dan dailyschedule serta pastikan data Anda sudah lengkap.</p>
-              </div>
-            </div>
+            <!-- Main Content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Information Section -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="info-card">
+                                <i class="info-icon fas fa-calendar-alt"></i>
+                                <div class="info-text">
+                                    <strong>Jadwal Kuliah</strong>
+                                    <p>Periksa jadwal kuliah harian Anda yang telah diatur oleh administrator.</p>
+                                </div>
+                            </div>
 
-            <div class="info-card">
-              <i class="info-icon fas fa-info-circle"></i>
-              <div class="info-text">
-                <strong>Bantuan</strong>
-                <p>Hubungi administrator untuk bantuan lebih lanjut terkait sistem.</p>
-              </div>
-            </div>
-          </div>
+                            <div class="info-card">
+                                <i class="info-icon fas fa-user"></i>
+                                <div class="info-text">
+                                    <strong>Pendataan</strong>
+                                    <p>Perbarui informasi data Anda seperti nama, mata kuliah, dan jadwal harian.</p>
+                                </div>
+                            </div>
+
+                            <div class="info-card">
+                                <i class="info-icon fas fa-info-circle"></i>
+                                <div class="info-text">
+                                    <strong>Bantuan</strong>
+                                    <p>Hubungi administrator untuk bantuan lebih lanjut terkait sistem.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-      </div>
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong>&copy; 2024 Penjadwalan Nusput.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
     </div>
-  </footer>
-</div>
-<!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-<script src="../../../plugins/jquery/jquery.min.js"></script>
-<script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="../../../dist/js/adminlte.js"></script>
-<script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
-
-<script>
-  function btnLogout() {
-    localStorage.clear();
-    window.location.href = '../login.html';
-  }
-</script>
-
+    <!-- Scripts -->
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
+    <script>
+        function btnLogout() {
+            localStorage.clear();
+            window.location.href = '../login.html';
+        }
+    </script>
 </body>
+
 </html>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DailyscheduleStoreRequest;
 use App\Models\Dailyschedule;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class DailyscheduleController extends Controller
 {
     /**
@@ -30,7 +30,7 @@ class DailyscheduleController extends Controller
 
             // Simpan data schedule dengan user_id
             Dailyschedule::create([
-                'user_id' => $user_id,        // Menambahkan user_id ke data yang disimpan
+              
                 'kode' => $request->kode,
                 'matakuliah' => $request->matakuliah,
                 'sks' => $request->sks,
@@ -76,14 +76,38 @@ class DailyscheduleController extends Controller
      */
     public function update(DailyscheduleStoreRequest $request, $id)
     {
+        // Log the entire request data for debugging
+        Log::info('Update Daily Schedule Request', [
+            'id' => $id,
+            'method' => $request->method(),
+            'all_data' => $request->all(),
+            'input_data' => [
+                'kode' => $request->kode,
+                'matakuliah' => $request->matakuliah,
+                'sks' => $request->sks,
+                'nama_kelas' => $request->nama_kelas,
+                'hari' => $request->hari,
+                'jam' => $request->jam,
+                'ruang' => $request->ruang,
+                'pengampu1' => $request->pengampu1,
+                'pengampu2' => $request->pengampu2
+            ]
+        ]);
+        
         try {
             $dailyschedule = Dailyschedule::find($id);
+            
+            // Log if schedule is not found
             if (!$dailyschedule) {
+                Log::warning('Daily Schedule not found', [
+                    'id' => $id
+                ]);
+                
                 return response()->json([
                     'message' => 'Data daily tidak ditemukan.'
                 ], 404);
             }
-
+    
             // Perbarui data jurusan
             $dailyschedule->kode = $request->kode;
             $dailyschedule->matakuliah = $request->matakuliah;
@@ -94,15 +118,27 @@ class DailyscheduleController extends Controller
             $dailyschedule->ruang = $request->ruang;
             $dailyschedule->pengampu1 = $request->pengampu1;
             $dailyschedule->pengampu2 = $request->pengampu2;
-
+    
             // Simpan perubahan
-            $dailyschedule->save();
-
+            $result = $dailyschedule->save();
+            
+            // Log save result
+            Log::info('Daily Schedule Update Result', [
+                'save_result' => $result,
+                'updated_data' => $dailyschedule->toArray()
+            ]);
+    
             // Return Json Response
             return response()->json([
                 'message' => "Data daily berhasil diperbarui."
             ], 200);
         } catch (\Exception $e) {
+            // Log the full exception details
+            Log::error('Daily Schedule Update Error', [
+                'error_message' => $e->getMessage(),
+                'error_trace' => $e->getTraceAsString()
+            ]);
+    
             // Return Json Response
             return response()->json([
                 'message' => "Gagal memperbarui data angkatan. " . $e->getMessage()

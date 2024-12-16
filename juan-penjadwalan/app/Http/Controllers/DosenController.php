@@ -29,10 +29,9 @@ class DosenController extends Controller
                 'nidn' => $request->nidn,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
-                's1' => $request->s1,
-                's2' => $request->s2,
-                's3' => $request->s3,
-
+                's1' => $request->s1 ?? null, // Beri nilai null jika kosong
+                's2' => $request->s2 ?? null, // Beri nilai null jika kosong
+                's3' => $request->s3 ?? null, // Beri nilai null jika kosong
             ]);
             $data = $request->validated();
 
@@ -89,12 +88,11 @@ class DosenController extends Controller
             $dosen->nidn = $request->nidn;
             $dosen->nama = $request->nama;
             $dosen->alamat = $request->alamat;
-            $dosen->s1 = $request->s1;
-            $dosen->s2 = $request->s2;
-            $dosen->s3 = $request->s3;
-
-            // Simpan perubahan
+            $dosen->s1 = $request->s1 ?? null;
+            $dosen->s2 = $request->s2 ?? null;
+            $dosen->s3 = $request->s3 ?? null;
             $dosen->save();
+            
 
             // Return Json Response
             return response()->json([

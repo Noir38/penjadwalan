@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Penjadwalan Matakuliah</title>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -13,157 +13,141 @@
   <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
-
-  <!-- jQuery harus dimuat di bagian head agar siap digunakan -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <!-- jQuery -->
   <script src="../../../plugins/jquery/jquery.min.js"></script>
-
-  <!-- Sidebar dan Navbar dimuat setelah DOM siap -->
- 
-
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+  <div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <p>Loading</p>
+    </div>
 
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__wobble" src="../../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+    <!-- Navbar -->
+    <div id="navbar"></div>
 
-  <!-- Navbar -->
-  <div id="navbar"></div>
+    <!-- Main Sidebar Container -->
+    <div id="sidebar"></div>
 
-  <!-- Main Sidebar Container -->
-  <div id="sidebar"></div>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Penjadwalan Matakuliah</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Penjadwalan Matakuliah</li>
-            </ol>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+      <!-- Content Header -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Penjadwalan Matakuliah</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Penjadwalan Matakuliah</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="container mt-5">
-          <h1>Jadwal Matakuliah</h1>
-
-          <!-- Tabel Data Matakuliah -->
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead class="table-dark">
-                <tr>
-                  <th>No</th>
-                  <th>Kode</th>
-                  <th>Matakuliah</th>
-                  <th>Nama Kelas</th>
-                  <th>SKS</th>
-                  <th>Hari</th>
-                  <th>Jam</th>
-                  <th>Ruang</th>
-                  <th>Pengampu 1</th>
-                  <th>Pengampu 2</th>
-
-                </tr>
-              </thead>
-              <tbody id="matkulTableBody">
-                <!-- Data Matakuliah Akan Ditambahkan Di Sini -->
-              </tbody>
-            </table>
+      <!-- Main Content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="container mt-5">
+            <!-- Tabel Data Matakuliah -->
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th>No</th>
+                    <th>Kode</th>
+                    <th>Matakuliah</th>
+                    <th>Nama Kelas</th>
+                    <th>SKS</th>
+                    <th>Hari</th>
+                    <th>Jam</th>
+                    <th>Ruang</th>
+                    <th>Pengampu 1</th>
+                    <th>Pengampu 2</th>
+                  </tr>
+                </thead>
+                <tbody id="matkulTableBody">
+                  <!-- Data Matakuliah Akan Ditambahkan Di Sini -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+      </section>
+    </div>
 
-        <!-- Bootstrap JS dari CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark"></aside>
+  </div>
 
-        <script>
-          $(document).ready(function () {
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- AdminLTE App -->
+  <script src="../../../dist/js/adminlte.js"></script>
 
-    // Fetch data dari API saat halaman pertama kali dimuat
-    fetchData();
-  
+  <!-- overlayScrollbars -->
+  <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 
-    // Function untuk fetch data dari API
-    function fetchData() {
+  <!-- Sidebar Script -->
+  <script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
+
+  <!-- Script untuk Mengelola Data -->
+  <script>
+    $(document).ready(function () {
+      let matkulData = [];
+
+      // Fetch data dari API saat halaman pertama kali dimuat
+      fetchData();
+
+      // Function untuk fetch data dari API
+      function fetchData() {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/daily',
-            method: 'GET',
-            success: function (response) {
-                matkulData = response.results;
-                renderTable();
-            },
-            error: function (error) {
-                console.error('Error fetching daily data:', error);
-            }
+          url: 'http://127.0.0.1:8000/api/daily',
+          method: 'GET',
+          success: function (response) {
+            matkulData = response.results;
+            renderTable();
+          },
+          error: function (error) {
+            console.error('Error fetching daily data:', error);
+          }
         });
-    }
+      }
 
-   
-    
-
-    function renderTable() {
-        let tableBody = matkulData.map((data, index) => `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${data.kode}</td>
-                <td>${data.matakuliah}</td>
-                <td>${data.nama_kelas}</td>
-                <td>${data.sks}</td>
-                <td>${data.hari}</td>
-                <td>${data.jam}</td>
-                <td>${data.ruang}</td>
-                <td>${data.pengampu1}</td>
-                <td>${data.pengampu2 || '-'}</td>
-            </tr>
+      // Function untuk render tabel data matakuliah
+      function renderTable() {
+        const tableBody = matkulData.map((data, index) => `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${data.kode}</td>
+            <td>${data.matakuliah}</td>
+            <td>${data.nama_kelas}</td>
+            <td>${data.sks}</td>
+            <td>${data.hari}</td>
+            <td>${data.jam}</td>
+            <td>${data.ruang}</td>
+            <td>${data.pengampu1}</td>
+            <td>${data.pengampu2 || '-'}</td>
+          </tr>
         `);
 
         $('#matkulTableBody').html(tableBody.join(''));
-    }
+      }
 
-    
-});
-
-        </script>
-      </div>
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
-    </div>
-  </footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- AdminLTE App -->
-<script src="../../../dist/js/adminlte.js"></script>
-<!-- overlayScrollbars -->
-<script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="../../components/js/sidebar-admin/sidebar-user.js"></script>
-
-
+      // Function untuk logout
+      function btnLogout() {
+        localStorage.clear();
+        window.location.href = '../login.html';
+      }
+    });
+  </script>
 </body>
+
 </html>

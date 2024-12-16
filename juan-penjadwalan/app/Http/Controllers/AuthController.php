@@ -15,6 +15,50 @@ class AuthController extends Controller
      *
      * @return void
      */
+    /**
+ * Change the password of the authenticated user.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function changePassword(Request $request)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'current_password' => 'required|string|min:6',
+        'new_password' => 'required|string|min:6|confirmed', // Pastikan konfirmasi password cocok
+    ]);
+
+    // Jika validasi gagal, kirimkan respons error
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Input tidak valid',
+            'errors' => $validator->errors()
+        ], 400);
+    }
+
+    // Ambil user yang sedang terautentikasi
+    $user = auth()->user();
+
+    // Verifikasi kata sandi saat ini
+    if (!Hash::check($request->current_password, $user->password)) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Kata sandi saat ini salah.'
+        ], 400);
+    }
+
+    // Update kata sandi ke yang baru
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Kata sandi berhasil diubah.'
+    ]);
+}
+
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);

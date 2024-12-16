@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Penjadwalan Mata Kuliah</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -14,283 +16,273 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
   <!-- jQuery harus dimuat di bagian head agar siap digunakan -->
   <script src="../../../plugins/jquery/jquery.min.js"></script>
 
-  <!-- Sidebar dan Navbar dimuat setelah DOM siap -->
-  
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
-      <!-- Preloader -->
-      <div class="preloader flex-column justify-content-center align-items-center">
-        <p>Loading</p>
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <p>Loading</p>
     </div>
 
-      <!-- Navbar -->
-      <nav class="main-header navbar navbar-expand navbar-dark">
-          <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-              </li>
-              <li class="nav-item d-none d-sm-inline-block">
-                  <a href="index.html" class="nav-link">Home</a>
-              </li>
-          </ul>
-      </nav>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+      </ul>
+    </nav>
 
-      <!-- Sidebar -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
-          <a href="index.html" class="brand-link">
-              <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
-              <span class="brand-text font-weight-light">Penjadwalan</span>
-          </a>
-          <div id="sidebar" class="sidebar"></div>
-      </aside>
+    <!-- Sidebar -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <a href="index.html" class="brand-link">
+        <img src="../../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">Penjadwalan</span>
+      </a>
+      <div id="sidebar" class="sidebar"></div>
+      <div id="navbar"></div>
+    </aside>
 
-      <!-- Content Wrapper -->
-      <div class="content-wrapper">
-          <div class="content-header">
-              <div class="container-fluid">
-                  <div class="row mb-2">
-                      <div class="col-sm-6">
-                          <h1 class="m-0">Penjadwalan Mata Kuliah</h1>
-                      </div>
-                      <div class="col-sm-6">
-                          <ol class="breadcrumb float-sm-right">
-                              <li class="breadcrumb-item"><a href="#">Home</a></li>
-                              <li class="breadcrumb-item active">Penjadwalan Mata Kuliah</li>
-                          </ol>
-                      </div>
-                  </div>
-              </div>
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Data Mata Kuliah</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Penjadwalan Mata Kuliah</li>
+              </ol>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Main content -->
-          <section class="content">
-              <div class="container-fluid">
-                  <div>
-                      <div class="card-body">
-                    
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div>
+            <div class="card-body">
 
-                          <!-- Tabel Data Mata Kuliah -->
-                          <div class="table-responsive">
-                              <table class="table table-striped table-hover table-bordered">
-                                  <thead class="table-dark">
-                                      <tr>
-                                          <th>No</th>
-                                          <th>Kode</th>
-                                          <th>Nama Mata Kuliah</th>
-                                          <th>SKS</th>
-                                          <th>Semester</th>
-                                          <th>Action</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody id="matakuliahTableBody">
-                                      <!-- Data Mata Kuliah Akan Ditambahkan Di Sini -->
-                                  </tbody>
-                              </table>
-                          </div>
-
-                          <!-- Button untuk tambah data mata kuliah -->
-                          <div class="d-flex flex-row-reverse">
-                              <button class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#matakuliahModal">
-                                  <i class="fas fa-plus-circle"></i> Tambah Data Mata Kuliah
-                              </button>
-                          </div>
-
-                          <!-- Modal Form Tambah/Edit Mata Kuliah -->
-                          <div class="modal fade" id="matakuliahModal" tabindex="-1" aria-labelledby="matakuliahModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="matakuliahModalLabel">Tambah Data Mata Kuliah</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                          <form id="matakuliahForm">
-                                              <div class="mb-3">
-                                                  <label for="kode" class="form-label">Kode</label>
-                                                  <input type="text" class="form-control" id="kode" required>
-                                              </div>
-                                              <div class="mb-3">
-                                                  <label for="nama" class="form-label">Nama Mata Kuliah</label>
-                                                  <input type="text" class="form-control" id="nama" required>
-                                              </div>
-                                              <div class="mb-3">
-                                                  <label for="sks" class="form-label">SKS</label>
-                                                  <input type="number" class="form-control" id="sks" required>
-                                              </div>
-                                              <div class="mb-3">
-                                                  <label for="semester" class="form-label">Semester</label>
-                                                  <input type="number" class="form-control" id="semester" required>
-                                              </div>
-                                              <input type="hidden" id="editingIndex">
-                                              <button type="submit" class="btn btn-success">Simpan</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+              <!-- Tabel Data Mata Kuliah -->
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>No</th>
+                      <th>Kode</th>
+                      <th>Nama Mata Kuliah</th>
+                      <th>SKS</th>
+                      <th>Semester</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="matakuliahTableBody">
+                    <!-- Data Mata Kuliah Akan Ditambahkan Di Sini -->
+                  </tbody>
+                </table>
               </div>
-          </section>
-      </div>
 
-        <!-- Bootstrap JS dari CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+              <!-- Button untuk tambah data mata kuliah -->
+              <div class="d-flex flex-row-reverse">
+                <button class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#matakuliahModal">
+                  <i class="fas fa-plus-circle"></i> Tambah Data Mata Kuliah
+                </button>
+              </div>
 
-        <script>
-          $(document).ready(function () {
-              let matakuliahData = [];
-      
-              // Fetch data dari API saat halaman pertama kali dimuat
-              fetchData();
-      
-              // Function untuk fetch data dari API
-              function fetchData() {
-                  $.ajax({
-                      url: 'http://127.0.0.1:8000/api/matakuliah',
-                      method: 'GET',
-                      success: function (response) {
-                          matakuliahData = response.results;
-                          renderTable();
-                      },
-                      error: function (error) {
-                          console.error('Error fetching data:', error);
-                      }
-                  });
-              }
-      
-              // Function untuk render tabel data mata kuliah
-              function renderTable() {
-                  const matakuliahTableBody = $('#matakuliahTableBody');
-                  matakuliahTableBody.empty();
-      
-                  matakuliahData.forEach((data, index) => {
-                      const row = `
-                          <tr>
-                              <td>${index + 1}</td>
-                              <td>${data.kode}</td>
-                              <td>${data.nama}</td>
-                              <td>${data.sks}</td>
-                              <td>${data.semester}</td>
-                              <td>
-                                  <button class="btn btn-warning" onclick="editMatakuliah(${index})">Edit</button>
-                                  <button class="btn btn-danger" onclick="deleteMatakuliah(${data.id})">Delete</button>
-                              </td>
-                          </tr>
-                      `;
-                      matakuliahTableBody.append(row);
-                  });
-              }
-      
-              // Function untuk menambah atau mengedit data mata kuliah
-              $('#matakuliahForm').on('submit', function (e) {
-                  e.preventDefault();
-      
-                  const kode = $('#kode').val();
-                  const nama = $('#nama').val();
-                  const sks = $('#sks').val();
-                  const semester = $('#semester').val();
-                  const editingIndex = $('#editingIndex').val();
-      
-                  const newData = { kode, nama, sks, semester };
-      
-                  if (editingIndex) {
-                      // Update data mata kuliah (PUT request)
-                      $.ajax({
-                          url: `http://127.0.0.1:8000/api/matakuliahupdate/${matakuliahData[editingIndex].id}`,
-                          method: 'PUT',
-                          data: JSON.stringify(newData),
-                          contentType: 'application/json',
-                          success: function (response) {
-                              matakuliahData[editingIndex] = newData;
-                              renderTable();
-                              resetForm();
-                          },
-                          error: function (error) {
-                              console.error('Failed to update data:', error);
-                          }
-                      });
-                  } else {
-                      // Tambah data mata kuliah baru (POST request)
-                      $.ajax({
-                          url: 'http://127.0.0.1:8000/api/addmatakuliah',
-                          method: 'POST',
-                          data: JSON.stringify(newData),
-                          contentType: 'application/json',
-                          success: function (response) {
-                              matakuliahData.push(newData);
-                              renderTable();
-                              resetForm();
-                          },
-                          error: function (error) {
-                              console.error('Failed to add data:', error);
-                          }
-                      });
-                  }
-              });
-      
-              // Function untuk reset form
-              function resetForm() {
-                  $('#matakuliahForm')[0].reset();
-                  $('#editingIndex').val('');
-                  let modal = bootstrap.Modal.getInstance(document.getElementById('matakuliahModal'));
-                  modal.hide();
-              }
-      
-              // Function untuk edit data mata kuliah
-              window.editMatakuliah = function (index) {
-                  const data = matakuliahData[index];
-                  $('#kode').val(data.kode);
-                  $('#nama').val(data.nama);
-                  $('#sks').val(data.sks);
-                  $('#semester').val(data.semester);
-                  $('#editingIndex').val(index);
-      
-                  let modal = new bootstrap.Modal(document.getElementById('matakuliahModal'));
-                  modal.show();
-              }
-      
-              // Function untuk menghapus data mata kuliah
-              window.deleteMatakuliah = function (id) {
-                  if (confirm('Are you sure you want to delete this data?')) {
-                      $.ajax({
-                          url: `http://127.0.0.1:8000/api/matakuliahdelete/${id}`,
-                          method: 'DELETE',
-                          success: function (response) {
-                              matakuliahData = matakuliahData.filter(m => m.id !== id);
-                              renderTable();
-                          },
-                          error: function (error) {
-                              console.error('Failed to delete data:', error);
-                          }
-                      });
-                  }
-              }
+              <!-- Modal Form Tambah/Edit Mata Kuliah -->
+              <div class="modal fade" id="matakuliahModal" tabindex="-1" aria-labelledby="matakuliahModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="matakuliahModalLabel">Tambah Data Mata Kuliah</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="matakuliahForm">
+                        <div class="mb-3">
+                          <label for="kode" class="form-label">Kode</label>
+                          <input type="text" class="form-control" id="kode" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="nama" class="form-label">Nama Mata Kuliah</label>
+                          <input type="text" class="form-control" id="nama" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="sks" class="form-label">SKS</label>
+                          <input type="number" class="form-control" id="sks" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="semester" class="form-label">Semester</label>
+                          <input type="number" class="form-control" id="semester" required>
+                        </div>
+                        <input type="hidden" id="editingIndex">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
-              function btnLogout(){
-                            localStorage.clear();
-                            window.location.href = '../login.html'
-                        }
+    <!-- Bootstrap JS dari CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        let matakuliahData = [];
+
+        // Fetch data dari API saat halaman pertama kali dimuat
+        fetchData();
+
+        // Function untuk fetch data dari API
+        function fetchData() {
+          $.ajax({
+            url: 'http://127.0.0.1:8000/api/matakuliah',
+            method: 'GET',
+            success: function (response) {
+              matakuliahData = response.results;
+              renderTable();
+            },
+            error: function (error) {
+              console.error('Error fetching data:', error);
+            }
           });
-        </script>
+        }
 
-      </div>
-    </section>
+        // Function untuk render tabel data mata kuliah
+        function renderTable() {
+          const matakuliahTableBody = $('#matakuliahTableBody');
+          matakuliahTableBody.empty();
+
+          matakuliahData.forEach((data, index) => {
+            const row = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${data.kode}</td>
+                                <td>${data.nama}</td>
+                                <td>${data.sks}</td>
+                                <td>${data.semester}</td>
+                                <td>
+                                    <button class="btn btn-warning" onclick="editDataMatakuliah(${index})">Edit</button>
+                                    <button class="btn btn-danger" onclick="deleteDataMatakuliah(${data.id})">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+            matakuliahTableBody.append(row);
+          });
+        }
+
+        // Function untuk menambah atau mengedit data mata kuliah
+        $('#matakuliahForm').on('submit', function (e) {
+          e.preventDefault();
+
+          const kode = $('#kode').val();
+          const nama = $('#nama').val();
+          const sks = $('#sks').val();
+          const semester = $('#semester').val();
+          const editingIndex = $('#editingIndex').val();
+
+          const newData = {
+            kode,
+            nama,
+            sks,
+            semester
+          };
+
+          if (editingIndex) {
+            // Update data mata kuliah (PUT request)
+            $.ajax({
+              url: `http://127.0.0.1:8000/api/matakuliahupdate/${matakuliahData[editingIndex].id}`,
+              method: 'POST',
+              data: JSON.stringify(newData),
+              contentType: 'application/json',
+              success: function (response) {
+                fetchData(); // Refresh data dari server setelah update
+                resetForm();
+              },
+              error: function (error) {
+                console.error('Failed to update data:', error);
+              }
+            });
+          } else {
+            // Tambah data mata kuliah baru (POST request)
+            $.ajax({
+              url: 'http://127.0.0.1:8000/api/addmatakuliah',
+              method: 'POST',
+              data: JSON.stringify(newData),
+              contentType: 'application/json',
+              success: function (response) {
+                fetchData(); // Refresh data setelah penambahan
+                resetForm();
+              },
+              error: function (error) {
+                console.error('Failed to add new data:', error);
+              }
+            });
+          }
+        });
+
+        // Function untuk mengedit data mata kuliah
+        window.editDataMatakuliah = function (index) {
+          const data = matakuliahData[index];
+
+          $('#kode').val(data.kode);
+          $('#nama').val(data.nama);
+          $('#sks').val(data.sks);
+          $('#semester').val(data.semester);
+          $('#editingIndex').val(index);
+
+          $('#matakuliahModal').modal('show');
+        };
+
+        // Function untuk menghapus data mata kuliah
+        window.deleteDataMatakuliah = function (id) {
+          $.ajax({
+            url: `http://127.0.0.1:8000/api/matakuliahdelete/${id}`,
+            method: 'DELETE',
+            success: function (response) {
+              fetchData(); // Refresh data setelah penghapusan
+            },
+            error: function (error) {
+              console.error('Failed to delete data:', error);
+            }
+          });
+        };
+
+        // Reset form setelah submit
+        function resetForm() {
+          $('#matakuliahForm')[0].reset();
+          $('#editingIndex').val('');
+          $('#matakuliahModal').modal('hide');
+        }
+      });
+
+    </script>
+  </div>
+  </section>
   </div>
 
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <strong>&copy; 2023 <a href="#">Nusput</a>.</strong> All rights reserved.
-  </footer>
-</div>
-
-<!-- AdminLTE App -->
-<script src="../../../dist/js/adminlte.js"></script>
-<script src="../../components/js/sidebar-admin/sidebar.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../../dist/js/adminlte.js"></script>
+  <script src="../../components/js/sidebar-admin/sidebar.js"></script>
 </body>
+
 </html>

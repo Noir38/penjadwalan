@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Penjadwalan Matakuliah</title>
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -16,16 +17,21 @@
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
+
     <div class="preloader flex-column justify-content-center align-items-center">
       <p>Loading</p>
     </div>
+
     <!-- Navbar -->
     <div id="navbar"></div>
     <!-- Main Sidebar Container -->
     <div id="sidebar"></div>
+
     <!-- Content Wrapper -->
     <div class="content-wrapper px-4">
       <!-- Content Header (Page header) -->
@@ -44,6 +50,7 @@
           </div>
         </div>
       </div>
+
       <!-- Main content -->
       <div>
         <div class="card-body">
@@ -74,6 +81,8 @@
             <button class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#matkulModal"><i
                 class="fas fa-plus-circle"></i> Tambah Jadwal Matakuliah</button>
           </div>
+
+
           <!-- Modal Form Tambah/Edit Matakuliah -->
           <div class="modal fade" id="matkulModal" tabindex="-1" aria-labelledby="matkulModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -85,6 +94,7 @@
                 <div class="modal-body">
                   <form id="matkulForm">
                     <input type="hidden" id="id" name="id">
+        
                     <div class="row mb-3">
                       <div class="col-md-6">
                         <label for="kodeMatakuliah" class="form-label">Pilih Mata Kuliah</label>
@@ -97,6 +107,7 @@
                         <input type="text" class="form-control" id="kode" name="kode" readonly>
                       </div>
                     </div>
+        
                     <div class="row mb-3">
                       <div class="col-md-6">
                         <label for="matakuliah" class="form-label">Matakuliah</label>
@@ -107,6 +118,7 @@
                         <input type="text" class="form-control" id="sks" name="sks" readonly>
                       </div>
                     </div>
+        
                     <div class="row mb-3">
                       <div class="col-md-6">
                         <label for="jurusan" class="form-label">Nama Kelas</label>
@@ -126,6 +138,7 @@
                         </select>
                       </div>
                     </div>
+        
                     <div class="row mb-3">
                       <div class="col-md-6">
                         <label for="jam" class="form-label">Jam</label>
@@ -138,6 +151,7 @@
                         </select>
                       </div>
                     </div>
+        
                     <div class="row mb-3">
                       <div class="col-md-6">
                         <label for="pengampu1" class="form-label">Pengampu 1</label>
@@ -152,6 +166,7 @@
                         </select>
                       </div>
                     </div>
+        
                     <div class="text-end">
                       <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i> Simpan
@@ -162,158 +177,171 @@
               </div>
             </div>
           </div>
+
+          <!-- Bootstrap JS -->
+
+
         </div>
         </section>
       </div>
 
-     
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline-block">
+          <b>Version</b> 3.2.0
+        </div>
+      </footer>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../plugins/jquery/jquery.min.js"></script>
+
     <!-- Script untuk Mengelola Data -->
     <script>
       $(document).ready(function () {
         const apiUrl = 'http://127.0.0.1:8000/api';
         let matkulData = [];
 
-        // Utilitas: Ajax Request
-        function sendRequest(url, method, data, onSuccess, onError) {
+        function fetchKelas() {
           $.ajax({
-            url,
-            method,
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            success: onSuccess,
-            error: onError || function () {
-              alert('Terjadi kesalahan saat memproses permintaan.');
-            },
-          });
-        }
+            url: `${apiUrl}/kelas`, // Endpoint API untuk kelas
+            method: 'GET',
+            success: function (response) {
+              const kelasOptions = response.results || [];
+              const $dropdown = $('#ruang');
 
-        // Utilitas: Isi Dropdown
-        function populateDropdown(url, $dropdown, placeholder, mapOptions) {
-          sendRequest(
-            url,
-            'GET',
-            null,
-            function (response) {
-              const options = response.results || [];
-              $dropdown.empty().append(`<option value="">${placeholder}</option>`);
-              options.forEach(option => $dropdown.append(mapOptions(option)));
-            },
-            function () {
-              alert(`Gagal memuat data untuk ${placeholder}.`);
-            }
-          );
-        }
+              $dropdown.empty();
+              $dropdown.append('<option value="">Pilih Ruang</option>');
 
-        // Fetch Data untuk Dropdown
-        function fetchDropdownData() {
-          populateDropdown(`${apiUrl}/kelas`, $('#ruang'), 'Pilih Ruang', item =>
-            `<option value="${item.kode_ruang}">${item.kode_ruang}</option>`);
-          populateDropdown(`${apiUrl}/dosen`, $('#pengampu1, #pengampu2'), 'Pilih Pengampu', dosen =>
-            `<option value="${dosen.nama}">${dosen.nama}</option>`);
-          populateDropdown(`${apiUrl}/matakuliah`, $('#kodeMatakuliah'), 'Pilih Mata Kuliah', item => `
-            <option value="${item.id}" data-kode="${item.kode}" data-nama="${item.nama}" data-sks="${item.sks}">
-              ${item.nama} (${item.kode})
+              kelasOptions.forEach(item => {
+                $dropdown.append(`
+            <option value="${item.kode_ruang}">
+              ${item.kode_ruang}
             </option>
           `);
-          populateDropdown(`${apiUrl}/angkatan`, $('#jurusan'), 'Pilih Nama Kelas', item =>
-            `<option value="${item.jurusan}">${item.jurusan}</option>`);
-        }
-
-        // Fungsi untuk memvalidasi konflik jadwal
-        function validateConflict(formData) {
-          const conflicts = matkulData.map(item => {
-            // Lewatkan validasi jika sedang memeriksa data yang sama (berdasarkan id)
-            if (item.id === formData.id) return null;
-
-            // Perhitungan waktu akhir
-            const calculateEndTime = (startTime, sks) => {
-              const [hours, minutes] = startTime.split(':').map(Number);
-              const durationMinutes = sks * 50; // 1 SKS = 50 menit
-              const endDate = new Date(1970, 0, 1, hours, minutes + durationMinutes);
-              const endHours = String(endDate.getHours()).padStart(2, '0');
-              const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
-              return `${endHours}:${endMinutes}`;
-            };
-
-            const existingStart = item.jam;
-            const existingEnd = calculateEndTime(existingStart, item.sks);
-            const formStart = formData.jam;
-            const formEnd = calculateEndTime(formStart, formData.sks);
-
-            // Konflik waktu
-            const isTimeConflict = (
-              (formStart >= existingStart && formStart < existingEnd) || // Mulai di antara jadwal lain
-              (formEnd > existingStart && formEnd <= existingEnd) || // Selesai di antara jadwal lain
-              (formStart <= existingStart && formEnd >= existingEnd) // Tumpang tindih penuh
-            );
-
-            if (!isTimeConflict) return null;
-
-            // Konflik ruangan
-            if (item.ruang === formData.ruang) {
-              return `Konflik ruangan: ${item.ruang} sudah digunakan pada ${item.hari} dari ${existingStart} hingga ${existingEnd}.`;
+              });
+            },
+            error: function () {
+              alert('Gagal memuat data ruang.');
             }
-
-            // Konflik pengampu
-            if (
-              item.pengampu1 === formData.pengampu1 ||
-              item.pengampu1 === formData.pengampu2 ||
-              item.pengampu2 === formData.pengampu1 ||
-              item.pengampu2 === formData.pengampu2
-            ) {
-              return `Konflik pengampu: ${item.pengampu1} atau ${item.pengampu2} sudah mengajar pada ${item.hari} dari ${existingStart} hingga ${existingEnd}.`;
-            }
-
-            // Konflik antar kelas (jadwal mahasiswa)
-            if (item.nama_kelas === formData.nama_kelas) {
-              return `Konflik jadwal kelas: Kelas ${item.nama_kelas} sudah memiliki jadwal pada ${item.hari} dari ${existingStart} hingga ${existingEnd}.`;
-            }
-
-            return null;
           });
-
-          return conflicts.filter(Boolean); // Kembalikan hanya konflik yang ditemukan
         }
 
-        // Sinkronisasi Mata Kuliah
+        //fetch data dosen 
+        function fetchDosen() {
+          $.ajax({
+            url: `${apiUrl}/dosen`, // Endpoint API untuk dosen
+            method: 'GET',
+            success: function (response) {
+              const dosenOptions = response.results || [];
+              const $dropdown1 = $('#pengampu1');
+              const $dropdown2 = $('#pengampu2');
+
+              // Kosongkan dropdown dan tambahkan opsi default
+              $dropdown1.empty().append('<option value="">Pilih Pengampu 1</option>');
+              $dropdown2.empty().append('<option value="">Pilih Pengampu 2</option>');
+
+              // Tambahkan data dosen ke dropdown
+              dosenOptions.forEach(dosen => {
+                const option = `<option value="${dosen.nama}">${dosen.nama}</option>`;
+                $dropdown1.append(option);
+                $dropdown2.append(option);
+              });
+            },
+            error: function () {
+              alert('Gagal memuat data dosen.');
+            }
+          });
+        }
+
+
+
+        // Fetch data mata kuliah
+        function fetchMatakuliah() {
+          $.ajax({
+            url: `${apiUrl}/matakuliah`,
+            method: 'GET',
+            success: function (response) {
+              const matakuliahOptions = response.results || [];
+              const $dropdown = $('#kodeMatakuliah');
+
+              $dropdown.empty();
+              $dropdown.append('<option value="">Pilih Mata Kuliah</option>');
+
+              matakuliahOptions.forEach(item => {
+                $dropdown.append(`
+                  <option value="${item.id}" data-kode="${item.kode}" data-nama="${item.nama}" data-sks="${item.sks}">
+                    ${item.nama} (${item.kode})
+                  </option>
+                `);
+              });
+            },
+            error: function () {
+              alert('Gagal memuat data mata kuliah.');
+            }
+          });
+        }
+
+        // Sinkronkan data saat memilih mata kuliah
         $('#kodeMatakuliah').on('change', function () {
           const selectedOption = $(this).find('option:selected');
           const kode = selectedOption.data('kode');
           const nama = selectedOption.data('nama');
           const sks = selectedOption.data('sks');
 
-          // Sinkronkan nilai ke input form
           $('#kode').val(kode || '');
           $('#matakuliah').val(nama || '');
           $('#sks').val(sks || '');
         });
 
-        // Fetch dan Render Data Jadwal
+
+        // Fetch data angkatan
+        function fetchAngkatan() {
+          $.ajax({
+            url: `${apiUrl}/angkatan`,
+            method: 'GET',
+            success: function (response) {
+              const angkatanOptions = response.results || [];
+              const $dropdown = $('#jurusan');
+
+              $dropdown.empty();
+              $dropdown.append('<option value="">Pilih Nama Kelas</option>');
+
+              angkatanOptions.forEach(item => {
+                $dropdown.append(`
+                  <option value="${item.jurusan}">${item.jurusan}</option>
+                `);
+              });
+            },
+            error: function () {
+              alert('Gagal memuat data angkatan.');
+            }
+          });
+        }
+
+        // Fetch data jadwal
         function fetchData() {
-          sendRequest(
-            `${apiUrl}/daily`,
-            'GET',
-            null,
-            function (response) {
+          $.ajax({
+            url: `${apiUrl}/daily`,
+            method: 'GET',
+            success: function (response) {
               matkulData = response.results || [];
               renderTable();
             },
-            function () {
+            error: function () {
               alert('Gagal memuat data jadwal.');
             }
-          );
+          });
         }
 
-        // Render Tabel Jadwal
+
+        // Render tabel
         function renderTable() {
-          const $tableBody = $('#matkulTableBody');
-          $tableBody.empty();
+          const matkulTableBody = $('#matkulTableBody');
+          matkulTableBody.empty();
 
           matkulData.forEach((data, index) => {
-            $tableBody.append(`
+            const row = `
               <tr>
                 <td>${index + 1}</td>
                 <td>${data.kode}</td>
@@ -329,12 +357,102 @@
                   <button class="btn btn-warning" onclick="editJadwal(${index})">Edit</button>
                   <button class="btn btn-danger" onclick="deleteJadwal(${data.id})">Delete</button>
                 </td>
-              </tr>
-            `);
+              </tr>`;
+            matkulTableBody.append(row);
           });
         }
 
-        // Definisikan fungsi di scope global
+
+        function calculateEndTime(startTime, sks) {
+          const [hours, minutes] = startTime.split(':').map(Number);
+          const durationMinutes = sks * 50; // 1 SKS = 50 menit
+          const endDate = new Date(1970, 0, 1, hours, minutes + durationMinutes);
+
+          const endHours = String(endDate.getHours()).padStart(2, '0');
+          const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+
+          return `${endHours}:${endMinutes}`;
+        }
+
+        // Tambah/Edit data dengan validasi konflik
+        $('#matkulForm').on('submit', function (e) {
+          e.preventDefault();
+
+          const id = $('#id').val();
+          const sks = parseInt($('#sks').val(), 10);
+          const startTime = $('#jam').val();
+          const endTime = calculateEndTime(startTime, sks);
+
+          const formData = {
+            kode: $('#kode').val(),
+            matakuliah: $('#matakuliah').val(),
+            nama_kelas: $('#jurusan').val(),
+            sks,
+            hari: $('#hari').val(),
+            jam: startTime,
+            ruang: $('#ruang').val(),
+            pengampu1: $('#pengampu1').val(),
+            pengampu2: $('#pengampu2').val(),
+          };
+
+          // Validasi konflik
+          const isConflict = matkulData.some(item => {
+            if (item.hari !== formData.hari) return false;
+
+            const existingStart = item.jam;
+            const existingEnd = calculateEndTime(existingStart, item.sks);
+
+            // Konflik waktu (ruangan, pengampu, atau jadwal mahasiswa)
+            const isTimeConflict = (
+              (startTime >= existingStart && startTime < existingEnd) || // Mulai di antara jadwal lain
+              (endTime > existingStart && endTime <= existingEnd) || // Selesai di antara jadwal lain
+              (startTime <= existingStart && endTime >= existingEnd) // Tumpang tindih penuh
+            );
+
+            // Konflik ruangan
+            const isRoomConflict = isTimeConflict && item.ruang === formData.ruang;
+
+            // Konflik pengampu
+            const isPengampuConflict = isTimeConflict && (
+              item.pengampu1 === formData.pengampu1 ||
+              item.pengampu1 === formData.pengampu2 ||
+              item.pengampu2 === formData.pengampu1 ||
+              item.pengampu2 === formData.pengampu2
+            );
+
+            // Konflik antar jadwal mahasiswa (kelas)
+            const isClassConflict = isTimeConflict && item.nama_kelas === formData.nama_kelas;
+
+            return isRoomConflict || isPengampuConflict || isClassConflict;
+          });
+
+          if (isConflict) {
+            alert('Konflik terdeteksi! Periksa hari, jam, ruang, pengampu, atau kelas.');
+            return;
+          }
+
+          const method = id ? 'PUT' : 'POST';
+          const url = id ? `${apiUrl}/dailyupdate/${id}` : `${apiUrl}/adddaily`;
+
+          $.ajax({
+            url,
+            method,
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function () {
+              fetchData();
+              $('#matkulModal').modal('hide');
+            },
+            error: function () {
+              alert('Gagal menyimpan data.');
+            }
+          });
+        });
+
+
+
+
+        // Edit data
         window.editJadwal = function (index) {
           const data = matkulData[index];
           $('#id').val(data.id);
@@ -350,78 +468,51 @@
           $('#matkulModal').modal('show');
         };
 
-        // Fungsi untuk menghapus jadwal
+        // Delete data
         window.deleteJadwal = function (id) {
-          if (confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) {
-            sendRequest(
-              `${apiUrl}/dailydelete/${id}`, // Sesuaikan endpoint API penghapusan
-              'DELETE',
-              null,
-              function () {
-                alert('Jadwal berhasil dihapus.');
-                fetchData(); // Perbarui data setelah penghapusan
+          if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+            $.ajax({
+              url: `${apiUrl}/dailydelete/${id}`,
+              method: 'DELETE',
+              success: function () {
+                fetchData();
               },
-              function () {
-                alert('Gagal menghapus jadwal.');
+              error: function () {
+                alert('Gagal menghapus data.');
               }
-            );
+            });
           }
         };
 
-
-
-        // Tambah/Edit Data Jadwal
-        $('#matkulForm').on('submit', function (e) {
-          e.preventDefault();
-
-          const id = $('#id').val();
-          const sks = parseInt($('#sks').val(), 10);
-          const formData = {
-            id: id ? parseInt(id, 10) : null, // Tambahkan id untuk validasi
-            kode: $('#kode').val(),
-            matakuliah: $('#matakuliah').val(),
-            nama_kelas: $('#jurusan').val(),
-            sks,
-            hari: $('#hari').val(),
-            jam: $('#jam').val(),
-            ruang: $('#ruang').val(),
-            pengampu1: $('#pengampu1').val(),
-            pengampu2: $('#pengampu2').val(),
-          };
-
-          const conflicts = validateConflict(formData);
-
-          if (conflicts.length > 0) {
-            alert(`Konflik terdeteksi:\n- ${conflicts.join('\n- ')}`);
-            return;
-          }
-
-          const method = id ? 'PUT' : 'POST';
-          const url = id ? `${apiUrl}/dailyupdate/${id}` : `${apiUrl}/adddaily`;
-
-          sendRequest(
-            url,
-            method,
-            formData,
-            function () {
-              fetchData();
-              $('#matkulModal').modal('hide');
-            }
-          );
+        // Reset form
+        $('#btnTambah').on('click', function () {
+          $('#id').val('');
+          $('#matkulForm')[0].reset();
         });
 
-        function btnLogout() {
-          localStorage.clear();
-          window.location.href = '../login.html';
-        }
-
-
         // Inisialisasi
-        fetchDropdownData();
+        fetchAngkatan();
+        fetchMatakuliah();
+        fetchKelas();
+        fetchDosen();
         fetchData();
       });
 
     </script>
+
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="../../components/js/sidebar-admin/sidebar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+
+
+
+
+
+    <!-- AdminLTE App -->
     <script src="../../../dist/js/adminlte.js"></script>
     <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="../../components/js/sidebar-admin/sidebar.js"></script>
